@@ -1,0 +1,51 @@
+format_version: 3
+pipelines:
+  - name: PythonAppPipeline
+    materials:
+      - git: https://github.com/thebestlearner-ric/air-backend.git
+    stages:
+      - name: Build
+        jobs:
+          - name: dockerbuild
+            tasks:
+              - exec:
+                command: git
+                arguments:
+                  - rev-parse
+                  - --short=8
+                  - HEAD
+                run_if: passed
+                environment_variables:
+                  - name: COMMIT_HASH
+                    value: ""
+              - exec:
+                  command: docker
+                  arguments: 
+                    - build
+                    - -t
+                    - learningric/air_artifact:$COMMIT_HASH # Use a timestamp as the tag
+                  working_directory: docker
+      - name: Push to DockerHub 
+        jobs:
+          - name: push-to-dockerhub
+            tasks:
+              - exec:
+                command: docker
+                arguments:
+                  - push
+                  - learningric/air_artifact:$COMMIT_HASH
+                run_if: passed
+                working_directory: docker
+      - name: Deploy
+        jobs:
+          - name: kubectldeploy
+            tasks:
+              - exec:
+                  command: kubectl
+                  arguments:
+                    - apply
+                    - -f
+                    - deployment.yaml # Specify your Kubernetes deployment YAML
+                  environment_variables:
+                    - name: KUBECONFIG
+                      value: /path/to/your/kubeconfig.yaml # Specify your kubeconfig file
