@@ -24,9 +24,11 @@ pipelines:
         jobs:
           print-hello-world:
             timeout: 0
+            elastic_profile_id: demo-app
             tasks:
             - exec:
                 arguments:
                 - hello world
                 command: echo
                 run_if: passed
+            
