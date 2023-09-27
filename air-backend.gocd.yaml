@@ -37,10 +37,10 @@ pipelines:
             tasks:
             - exec:
                 arguments:
-                  - c
+                  - -c
                   - |
                     uname -u
-                command: bash"
+                command: bash
             - exec:
                 arguments:
                   - -altr
@@ -48,7 +48,7 @@ pipelines:
             - exec:
                 command: bash 
                 arguments:
-                  - c
+                  - -c
                   - |
                     cd air-backend-repo
                     TAG_NAME=$(git rev-parse --short=8 HEAD)
