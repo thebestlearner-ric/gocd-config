@@ -37,8 +37,9 @@ pipelines:
                   - name: COMMIT_HASH
                     value: ""
             - exec:
-                command: docker build
+                command: docker 
                 arguments: 
+                  - build
                   - -t
                   - learningric/air_artifact:backend-$(git rev-parse --short=8 HEAD)
                   - -f 
