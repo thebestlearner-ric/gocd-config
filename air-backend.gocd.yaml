@@ -59,9 +59,14 @@ pipelines:
                 arguments:
                   - login 
                   - -u 
-                  - env.DOCKER_USER 
+                  - DOCKER_USER 
                   - -p
-                  - env.DOCKER_PASSWORD
+                  - DOCKER_PASSWORD
+              environment_variables:
+                DOCKER_USER: learningric
+                DOCKER_REPO: learningric/air_artifact
+              secure_variables:
+                DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==              
             - exec:
                 command: bash
                 arguments:
