@@ -59,9 +59,9 @@ pipelines:
                 arguments:
                   - login 
                   - -u 
-                  - DOCKER_USER 
+                  - $DOCKER_USER 
                   - -p
-                  - DOCKER_PASSWORD
+                  - $DOCKER_PASSWORD
             - exec:
                 command: bash
                 arguments:
