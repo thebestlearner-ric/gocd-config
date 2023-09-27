@@ -52,5 +52,9 @@ pipelines:
                 arguments:
                   - build
                   - -t
-                  - "learningric/air_artifact:backend-$(git rev-parse --short=8 HEAD)"
-                  - .       
+                  - "learningric/air_artifact:backend-${git rev-parse --short=8 HEAD}"
+                  - . 
+            - exec:
+                command: bash 
+                arguments:
+                  - scripts/build.sh
