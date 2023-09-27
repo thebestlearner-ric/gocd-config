@@ -48,9 +48,4 @@ pipelines:
                   - build
                   - -t
                   - 'learningric/air_artifact:backend-$(git rev-parse --short=8 HEAD)'
-                  - -f 
-                  - Dockerfile
-                  - . 
-            - exec:
-                command: bash -c 'docker build -t "learningric/air_artifact:backend-$(git rev-parse --short=8 HEAD)" -f Dockerfile .' 
-                
+                  - .       
