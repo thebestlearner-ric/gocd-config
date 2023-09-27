@@ -13,7 +13,15 @@ pipelines:
         auto_update: true
         branch: main
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
-        working_directory: app
+        destination: air-backend-repo
+      air-backend-conf:
+        git: https://github.com/thebestlearner-ric/gocd-config.git
+        username: thebestlearner-ric
+        shallow_clone: true
+        auto_update: true
+        branch: backend
+        encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
+        destination: air-backend-repo-config
     stages:
     - GetGitHash:
         fetch_materials: true
@@ -29,26 +37,22 @@ pipelines:
             tasks:
             - exec:
                 arguments:
-                  - rev-parse
-                  - --short=8
-                  - HEAD
-                command: git
-                run_if: passed
-                environment_variables:
-                  - name: COMMIT_HASH
-                    value: ""
+                  - c
+                  - |
+                    uname -u
+                command: bash"
             - exec:
                 arguments:
                   - -altr
                 command: ls
             - exec:
-                command: docker 
-                arguments:
-                  - build
-                  - -t
-                  - "learningric/air_artifact:backend-${git rev-parse --short=8 HEAD}"
-                  - app
-            - exec:
                 command: bash 
                 arguments:
-                  - scripts/build.sh
+                  - c
+                  - |
+                    cd air-backend-repo
+                    TAG_NAME=$(git rev-parse --short=8 HEAD)
+                    docker build -t $DOCKER_REPO:$TAG_NAME .
+                environment_variables:
+                - name: DOCKER_REPO
+                  value: learningric/air_artifact
