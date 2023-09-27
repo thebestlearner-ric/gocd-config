@@ -52,7 +52,7 @@ pipelines:
                   - |
                     cd air-backend-repo
                     TAG_NAME=$(git rev-parse --short=8 HEAD)
-                    docker build -t $DOCKER_REPO:$TAG_NAME .
+                    docker build -t $DOCKER_REPO:backend-$TAG_NAME .
                 environment_variables:
                 - name: DOCKER_REPO
                   value: learningric/air_artifact
