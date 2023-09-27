@@ -23,7 +23,7 @@ pipelines:
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
         destination: air-backend-repo-config
     stages:
-    - GetGitHash:
+    - Build:
         fetch_materials: true
         keep_artifacts: false
         clean_workspace: false
@@ -34,6 +34,9 @@ pipelines:
           dockerbuild:
             timeout: 0
             elastic_profile_id: demo-app
+            environment_variables:
+              - name: DOCKER_REPO
+                value: learningric/air_artifact
             tasks:
             - exec:
                 arguments:
@@ -53,6 +56,4 @@ pipelines:
                     cd air-backend-repo
                     TAG_NAME=$(git rev-parse --short=8 HEAD)
                     docker build -t $DOCKER_REPO:backend-$TAG_NAME .
-                environment_variables:
-                - name: DOCKER_REPO
-                  value: learningric/air_artifact
+           
