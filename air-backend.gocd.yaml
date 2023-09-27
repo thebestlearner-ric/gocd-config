@@ -5,6 +5,8 @@ pipelines:
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
+    secure_env:
+      MY_SECRET_KEY: "test123"
     materials:
       air-backend:
         git: https://github.com/thebestlearner-ric/air-backend.git
@@ -36,16 +38,6 @@ pipelines:
             elastic_profile_id: demo-app
             tasks:
             - exec:
-                arguments:
-                  - -c
-                  - |
-                    uname -a
-                command: bash
-            - exec:
-                arguments:
-                  - -altr
-                command: ls
-            - exec:
                 command: bash 
                 arguments:
                   - -c
@@ -55,5 +47,17 @@ pipelines:
                     TAG_NAME=$(git rev-parse --short=8 HEAD)
                     docker build -t $DOCKER_REPO:backend-$TAG_NAME .
                     docker images
+          dockerpush:
+            timeout: 0
+            elastic_profile_id: demo-app
+            tasks:
+            - exec:
+                command: bash 
+                arguments:
+                  - -c
+                  - |
+                    echo $MY_SECRET_KEY
                     docker push $DOCKER_REPO:backend-$TAG_NAME
+                environment_variables:
+                  MY_SECRET_KEY: "#{secureEnv('MY_SECRET_KEY')}"
 
