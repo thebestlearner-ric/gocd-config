@@ -39,7 +39,7 @@ pipelines:
                 arguments:
                   - -c
                   - |
-                    uname -u
+                    uname -a
                 command: bash
             - exec:
                 arguments:
