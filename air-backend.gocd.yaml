@@ -54,23 +54,20 @@ pipelines:
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
-            - exec:
-                command: docker
-                arguments:
-                  - login 
-                  - -u 
-                  - "#{DOCKER_USER}" 
-                  - -p
-                  - "#{secureEnv('DOCKER_PASSWORD')}"
-              environment_variables:
-                DOCKER_USER: learningric
-                DOCKER_REPO: learningric/air_artifact
-                PASSWORD: "#{secureEnv('DOCKER_PASSWORD')}"              
+            # - exec:
+            #     command: docker
+            #     arguments:
+            #       - login 
+            #       - -u 
+            #       - "#{DOCKER_USER}" 
+            #       - -p
+            #       - "#{secureEnv('DOCKER_PASSWORD')}"            
             - exec:
                 command: bash
                 arguments:
                   - -c
                   - |
+                    docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
                     TAG_NAME=$(git rev-parse --short=8 HEAD)
                     docker push DOCKER_REPO:backend-TAG_NAME
                   
