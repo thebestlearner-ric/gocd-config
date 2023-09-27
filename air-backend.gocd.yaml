@@ -31,12 +31,12 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          environment_variables:
-            DOCKER_USER: learningric
-            DOCKER_REPO: learningric/air_artifact
-          secure_variables:
-            DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
           dockerbuild:
+            environment_variables:
+              DOCKER_USER: learningric
+              DOCKER_REPO: learningric/air_artifact
+            secure_variables:
+              DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
