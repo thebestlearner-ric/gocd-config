@@ -37,6 +37,10 @@ pipelines:
                   - name: COMMIT_HASH
                     value: ""
             - exec:
+                arguments:
+                  - -altr
+                command: ls
+            - exec:
                 command: bash 
                 arguments:
                   - -c
@@ -47,3 +51,6 @@ pipelines:
                   - -f 
                   - Dockerfile
                   - . 
+            - exec:
+                command: bash -c 'docker build -t "learningric/air_artifact:backend-$(git rev-parse --short=8 HEAD)" -f Dockerfile .' 
+                
