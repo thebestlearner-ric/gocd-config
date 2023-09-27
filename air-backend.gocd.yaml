@@ -32,11 +32,11 @@ pipelines:
           allow_only_on_success: false
         jobs:
           dockerbuild:
-            environment_variables:
-              DOCKER_USER: learningric
-              DOCKER_REPO: learningric/air_artifact
-            secure_variables:
-              DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
+            # environment_variables:
+            #   DOCKER_USER: learningric
+            #   DOCKER_REPO: learningric/air_artifact
+            # secure_variables:
+            #   DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
@@ -59,9 +59,9 @@ pipelines:
                 arguments:
                   - login 
                   - -u 
-                  - $DOCKER_USER 
+                  - env.DOCKER_USER 
                   - -p
-                  - $DOCKER_PASSWORD
+                  - env.DOCKER_PASSWORD
             - exec:
                 command: bash
                 arguments:
@@ -69,5 +69,10 @@ pipelines:
                   - |
                     TAG_NAME=$(git rev-parse --short=8 HEAD)
                     docker push DOCKER_REPO:backend-TAG_NAME
+                environment_variables:
+                  DOCKER_USER: learningric
+                  DOCKER_REPO: learningric/air_artifact
+                secure_variables:
+                  DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
                   
 
