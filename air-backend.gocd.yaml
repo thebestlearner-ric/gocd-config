@@ -5,8 +5,10 @@ pipelines:
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
-    secure_env:
-      MY_SECRET_KEY: "test123"
+    secure_variables:
+      MY_SECRET_KEY: test123
+    environment_variables:
+      DOCKER_REPO: learningric/air_artifact
     materials:
       air-backend:
         git: https://github.com/thebestlearner-ric/air-backend.git
@@ -60,4 +62,5 @@ pipelines:
                     docker push $DOCKER_REPO:backend-$TAG_NAME
                 environment_variables:
                   MY_SECRET_KEY: "#{secureEnv('MY_SECRET_KEY')}"
+                  
 
