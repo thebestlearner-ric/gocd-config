@@ -5,10 +5,6 @@ pipelines:
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
-    secure_variables:
-      MY_SECRET_KEY: test123
-    environment_variables:
-      DOCKER_REPO: learningric/air_artifact
     materials:
       air-backend:
         git: https://github.com/thebestlearner-ric/air-backend.git
@@ -35,6 +31,11 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
+          environment_variables:
+            DOCKER_USER: learningric
+            DOCKER_REPO: learningric/air_artifact
+          secure_variables:
+            DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
           dockerbuild:
             timeout: 0
             elastic_profile_id: demo-app
@@ -54,13 +55,19 @@ pipelines:
             elastic_profile_id: demo-app
             tasks:
             - exec:
-                command: bash 
+                command: docker
+                arguments:
+                  - login 
+                  - -u 
+                  - DOCKER_USER 
+                  - -p
+                  - DOCKER_PASSWORD
+            - exec:
+                command: bash
                 arguments:
                   - -c
                   - |
-                    echo $MY_SECRET_KEY
-                    docker push $DOCKER_REPO:backend-$TAG_NAME
-                environment_variables:
-                  MY_SECRET_KEY: "#{secureEnv('MY_SECRET_KEY')}"
+                    TAG_NAME=$(git rev-parse --short=8 HEAD)
+                    docker push DOCKER_REPO:backend-TAG_NAME
                   
 
