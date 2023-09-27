@@ -46,6 +46,6 @@ pipelines:
                   - -c
                   - docker
                   - build
-                  - -t
-                  - 'learningric/air_artifact:backend-$(git rev-parse --short=8 HEAD)'
+                  - --tag
+                  - "learningric/air_artifact:backend-$(git rev-parse --short=8 HEAD)"
                   - .       
