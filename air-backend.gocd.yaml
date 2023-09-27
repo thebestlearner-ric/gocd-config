@@ -34,9 +34,6 @@ pipelines:
           dockerbuild:
             timeout: 0
             elastic_profile_id: demo-app
-            environment_variables:
-              - name: DOCKER_REPO
-                value: learningric/air_artifact
             tasks:
             - exec:
                 arguments:
@@ -55,5 +52,4 @@ pipelines:
                   - |
                     cd air-backend-repo
                     TAG_NAME=$(git rev-parse --short=8 HEAD)
-                    docker build -t $DOCKER_REPO:backend-$TAG_NAME .
-           
+                    docker build -t learningric/air_artifact:backend-$TAG_NAME .
