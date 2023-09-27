@@ -13,6 +13,13 @@ pipelines:
         auto_update: true
         branch: main
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
+      air-backend-conf:
+        git: https://github.com/thebestlearner-ric/gocd-config.git
+        username: thebestlearner-ric
+        shallow_clone: true
+        auto_update: true
+        branch: backend
+        encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
     stages:
     - GetGitHash:
         fetch_materials: true
@@ -41,11 +48,9 @@ pipelines:
                   - -altr
                 command: ls
             - exec:
-                command: bash 
+                command: docker 
                 arguments:
-                  - -c
-                  - docker
                   - build
-                  - --tag
+                  - -t
                   - "learningric/air_artifact:backend-$(git rev-parse --short=8 HEAD)"
                   - .       
