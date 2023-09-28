@@ -65,23 +65,29 @@ pipelines:
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
+            # - exec:
+            #     command: bash
+            #     arguments:
+            #       - -c
+            #       - |
+            #         ls 
+            #         pwd
+            #         cd air-backend-repo-config
+            #         bash scripts/publish.sh
+            #         cd ..
             - exec:
-                command: bash
+                command: bash 
                 arguments:
-                  - -c
+                  - -c 
                   - |
-                    ls 
-                    pwd
-                    cd air-backend-repo-config
-                    bash scripts/publish.sh
-                    cd ..
+                    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             - exec:
-                command: kubectl
+                command: chmod 
                 arguments:
-                  - get
-                  - pods
-                  - -n 
-                  - gocd
+                  - +x
+                  - kubectl
+                privileged: true
+            
 
 
 
