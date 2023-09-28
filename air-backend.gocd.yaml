@@ -75,6 +75,13 @@ pipelines:
                     cd air-backend-repo-config
                     bash scripts/publish.sh
                     cd ..
+            - exec:
+                command: kubectl
+                arguments:
+                  - get
+                  - pods
+                  - -n 
+                  - gocd
 
 
 
