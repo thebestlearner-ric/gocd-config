@@ -59,6 +59,8 @@ pipelines:
                 arguments:
                   - -c
                   - |
+                    ls 
+                    pwd
                     cd air-backend-repo-config/scripts
                     bash build.sh
 
