@@ -62,7 +62,9 @@ pipelines:
                   - |
                     ls 
                     pwd
+                    cd air-backend-repo-config/scripts
                     bash scripts/publish.sh
+                    cd ..
 
 
 
