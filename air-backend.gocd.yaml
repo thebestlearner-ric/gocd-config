@@ -54,14 +54,14 @@ pipelines:
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
-            # - exec:
-            #     command: docker
-            #     arguments:
-            #       - login 
-            #       - -u 
-            #       - "#{DOCKER_USER}" 
-            #       - -p
-            #       - "#{secureEnv('DOCKER_PASSWORD')}"            
+            - exec:
+                command: bash
+                arguments:
+                  - -c
+                  - |
+                    cd air-backend-repo-config/scripts
+                    bash env.sh
+                    echo $(env)
             - exec:
                 command: bash
                 arguments:
