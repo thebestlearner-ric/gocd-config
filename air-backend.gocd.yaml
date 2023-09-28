@@ -87,6 +87,13 @@ pipelines:
                   - +x
                   - kubectl
                 privileged: true
+            - exec:
+                command: bash 
+                arguments:
+                  - -c
+                  - |
+                    cd air-backend-repo-config
+                    bash scripts/publish.sh
             
 
 
