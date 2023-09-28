@@ -98,11 +98,8 @@ pipelines:
                 arguments:
                   - -c
                   - |
-                    ls
+                    type docker
                     whoami
-                    chmod +x kubectl
-                    ls /usr/local/bin/
-                    cp kubectl /bin/
                 privileged: true
             - exec:
                 command: bash 
