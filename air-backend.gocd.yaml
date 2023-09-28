@@ -92,6 +92,7 @@ pipelines:
                 arguments:
                   - kubectl
                   - /usr/local/bin/
+                privileged: true
             - exec:
                 command: bash 
                 arguments:

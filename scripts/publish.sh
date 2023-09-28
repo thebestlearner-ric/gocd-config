@@ -5,3 +5,4 @@
 # docker push $DOCKER_REPO:backend-$TAG_NAME
 
 kubectl get pod -n gocd
+kubectl create namespace backend
