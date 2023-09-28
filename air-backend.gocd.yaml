@@ -50,6 +50,7 @@ pipelines:
                     TAG_NAME=$(git rev-parse --short=8 HEAD)
                     docker build -t $DOCKER_REPO:backend-$TAG_NAME .
                     docker images
+                    cd ..
           dockerpush:
             timeout: 0
             elastic_profile_id: demo-app
@@ -61,8 +62,7 @@ pipelines:
                   - |
                     ls 
                     pwd
-                    cd air-backend-repo-config/scripts
-                    bash build.sh
+                    bash publish.sh
 
 
 
