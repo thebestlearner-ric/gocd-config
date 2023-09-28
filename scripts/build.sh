@@ -11,13 +11,7 @@
 # This will be the name of the resulting Docker image
 # This values could come from the GoCD environment
 
-IMAGE=${learningric/air_artifact}
-COMMIT=${git rev-parse --short=8 HEAD}
-TAG=${backend-$COMMIT}
-
-# 1. Build the production container.
-docker build -t $IMAGE:$TAG -f ../Dockerfile .
-
-# Tag and push to ECR
-docker tag $IMAGE:$TAG 
-docker push $IMAGE:$TAG
+DOCKER_REPO=learningric/air_artifact
+docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+TAG_NAME=$(git rev-parse --short=8 HEAD)
+docker push $DOCKER_REPO:backend-TAG_NAME
