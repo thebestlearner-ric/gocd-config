@@ -87,12 +87,12 @@ pipelines:
                   - +x
                   - kubectl
                 privileged: true
-            - exec:
-                command: cp 
-                arguments:
-                  - kubectl
-                  - /bin/
-                privileged: true
+            # - exec:
+            #     command: cp 
+            #     arguments:
+            #       - kubectl
+            #       - /bin/
+            #     privileged: true
             - exec:
                 command: bash
                 arguments:
