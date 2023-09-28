@@ -99,9 +99,10 @@ pipelines:
                   - -c
                   - |
                     ls
+                    whoami
                     chmod +x kubectl
                     ls /usr/local/bin/
-                    cp kubectl /usr/local/bin/
+                    cp kubectl /bin/
                 privileged: true
             - exec:
                 command: bash 
