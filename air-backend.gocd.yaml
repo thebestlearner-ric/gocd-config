@@ -51,7 +51,19 @@ pipelines:
                     docker build -t $DOCKER_REPO:backend-$TAG_NAME .
                     docker images
                     cd ..
+    - Publish:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
           dockerpush:
+            environment_variables:
+              DOCKER_USER: learningric
+              DOCKER_REPO: learningric/air_artifact
+            secure_variables:
+              DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
@@ -62,7 +74,7 @@ pipelines:
                   - |
                     ls 
                     pwd
-                    cd air-backend-repo-config/scripts
+                    cd air-backend-repo-config
                     bash scripts/publish.sh
                     cd ..
 
