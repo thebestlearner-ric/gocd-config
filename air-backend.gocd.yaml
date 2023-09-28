@@ -62,7 +62,7 @@ pipelines:
                   - |
                     ls 
                     pwd
-                    bash publish.sh
+                    bash scripts/publish.sh
 
 
 
