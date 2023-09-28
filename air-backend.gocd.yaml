@@ -61,7 +61,7 @@ pipelines:
                   - |
                     cd air-backend-repo-config/scripts
                     bash build.sh
-                    echo $(DOCKER_PASSWORD)
+
 
 
                   

@@ -10,7 +10,7 @@
 
 # This will be the name of the resulting Docker image
 # This values could come from the GoCD environment
-cd air-backend-repo
+cd ~/air-backend-repo
 DOCKER_REPO=learningric/air_artifact
 TAG_NAME=$(git rev-parse --short=8 HEAD)
 docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
