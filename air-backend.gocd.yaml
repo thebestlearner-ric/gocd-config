@@ -58,6 +58,7 @@ pipelines:
         approval:
           type: success
           allow_only_on_success: false
+        jobs:
           dockerpush:
             environment_variables:
               DOCKER_USER: learningric
