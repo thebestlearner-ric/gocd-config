@@ -88,10 +88,10 @@ pipelines:
                   - kubectl
                 privileged: true
             - exec:
-                command: mv 
+                command: cp
                 arguments:
                   - kubectl
-                  - /usr/local/bin
+                  - /usr/local/bin/
             - exec:
                 command: bash 
                 arguments:
