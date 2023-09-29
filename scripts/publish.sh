@@ -4,5 +4,5 @@
 # TAG_NAME=$(git rev-parse --short=8 HEAD)
 # docker push $DOCKER_REPO:backend-$TAG_NAME
 
-kubectl get pod -n gocd
+$HOME/.local/bin/kubectl get pod -n gocd
 kubectl create namespace backend
