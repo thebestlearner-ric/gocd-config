@@ -80,13 +80,10 @@ pipelines:
                 arguments:
                   - -c 
                   - |
-                    cd /bin/
                     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-            - exec:
-                command: chmod 
-                arguments:
-                  - +x
-                  - /bin/kubectl
+                    chmod +x kubectl
+                    mv $HOME/kubectl $HOME/.local/bin/kubectl
+                    export PATH="$PATH:$HOME/.local/bin"
                 privileged: true
             - exec:
                 command: bash
