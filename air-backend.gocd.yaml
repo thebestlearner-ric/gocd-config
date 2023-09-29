@@ -23,7 +23,7 @@ pipelines:
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
         destination: air-backend-repo-config
     stages:
-    - Build:
+    - Build-and-Publish:
         fetch_materials: true
         keep_artifacts: false
         clean_workspace: false
@@ -31,7 +31,7 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          dockerbuild:
+          docker:
             environment_variables:
               DOCKER_USER: learningric
               DOCKER_REPO: learningric/air_artifact
@@ -48,7 +48,7 @@ pipelines:
                     cd air-backend-repo
                     bash scripts/build.sh
                     cd ..
-    - Publish:
+    - Kube-deploy:
         fetch_materials: true
         keep_artifacts: false
         clean_workspace: false
@@ -82,7 +82,7 @@ pipelines:
                   - |
                     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
                     chmod +x kubectl
-                    ls -altr
+                    mkdir -p ~/.local/bin
                     mv kubectl $HOME/.local/bin/kubectl
                     export PATH="$PATH:$HOME/.local/bin"
                 privileged: true
