@@ -55,7 +55,6 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          fetch:
           dockerpush:
             environment_variables:
               DOCKER_USER: learningric
@@ -79,7 +78,6 @@ pipelines:
                   - -c
                   - |
                     find / -n artifact.txt
-                privileged: true
             - exec:
                 command: bash 
                 arguments:
