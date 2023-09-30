@@ -8,7 +8,7 @@ NAMESPACE="$ENV"
 git clone https://github.com/thebestlearner-ric/air-backend.git
 git rev-parse --short HEAD
 docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-docker images
+docker images learningric/air_artifact
 if k get namespace "$NAMESPACE" &> /dev/null; then
   echo "Namespace '$NAMESPACE' already exists."
 else
