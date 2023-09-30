@@ -2,11 +2,11 @@
 
 # For Kubectl deployment
 $HOME/.local/bin/kubectl get pod -n gocd
-ENV=backend
+ENV=$1
 NAMESPACE=$ENV
-cd ../air-backend-repo
+cd ../air-$ENV-repo
 TAG="$(git rev-parse --short=8 HEAD)"
-cd ../air-backend-repo-config
+cd ../air-$ENV-repo-config
 TAGNAME="$ENV"_"$TAG"
 
 if $HOME/.local/bin/kubectl get namespace "$NAMESPACE" &> /dev/null; then

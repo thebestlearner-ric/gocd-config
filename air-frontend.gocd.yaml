@@ -6,22 +6,22 @@ pipelines:
     lock_behavior: none
     display_order: -1
     materials:
-      backend-repo:
-        git: https://github.com/thebestlearner-ric/air-backend.git
+      frontend-repo:
+        git: https://github.com/thebestlearner-ric/airport-frontend.git
         username: thebestlearner-ric
         shallow_clone: false
         auto_update: true
         branch: main
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
-        destination: air-backend-repo
+        destination: air-frontend-repo
       air-backend-conf:
         git: https://github.com/thebestlearner-ric/gocd-config.git
         username: thebestlearner-ric
         shallow_clone: false
         auto_update: true
-        branch: backend
+        branch: frontend
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
-        destination: air-backend-repo-config
+        destination: air-frontend-repo-config
     stages:
     - Build-and-Publish:
         fetch_materials: true
@@ -40,8 +40,8 @@ pipelines:
                 arguments:
                   - -c
                   - |
-                    cd air-backend-repo-config
-                    bash scripts/build.sh
+                    cd air-frontend-repo-config
+                    bash scripts/build.sh frontend
     - Kube-deploy:
         fetch_materials: true
         keep_artifacts: false
@@ -51,11 +51,6 @@ pipelines:
           allow_only_on_success: false
         jobs:
           dockerpush:
-            environment_variables:
-              DOCKER_USER: learningric
-              DOCKER_REPO: learningric/air_artifact
-            secure_variables:
-              DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
@@ -75,5 +70,5 @@ pipelines:
                 arguments:
                   - -c
                   - |
-                    cd air-backend-repo-config
-                    bash scripts/deploy-backend.sh
+                    cd air-frontend-repo-config
+                    bash scripts/deploy.sh frontend
