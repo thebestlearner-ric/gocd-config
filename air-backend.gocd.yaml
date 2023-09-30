@@ -40,7 +40,7 @@ pipelines:
                 arguments:
                   - -c
                   - |
-                    cd air-backend-repo
+                    cd air-backend-repo-config
                     bash scripts/build.sh
     - Kube-deploy:
         fetch_materials: true
