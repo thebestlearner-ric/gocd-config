@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  air-backend:
+  air-frontend:
     group: air
     label_template: ${COUNT}
     lock_behavior: none
@@ -14,7 +14,7 @@ pipelines:
         branch: main
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
         destination: air-frontend-repo
-      air-backend-conf:
+      air-frontend-conf:
         git: https://github.com/thebestlearner-ric/gocd-config.git
         username: thebestlearner-ric
         shallow_clone: false
