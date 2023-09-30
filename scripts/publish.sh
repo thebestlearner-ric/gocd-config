@@ -7,8 +7,8 @@ NAMESPACE=$ENV
 cd ../air-backend-repo
 TAG="$(git rev-parse --short=8 HEAD)"
 cd ../air-backend-repo-config
-TAG_NAME="$ENV.$TAG"
-docker pull $DOCKER_REPO:$TAG_NAME
+TAGNAME="$ENV_$TAG"
+docker pull $DOCKER_REPO:$TAGNAME
 docker images
 
 if $HOME/.local/bin/kubectl get namespace "$NAMESPACE" &> /dev/null; then
@@ -22,7 +22,7 @@ fi
 echo "what is in kube manifest $(ls -altr kube/manifest/)"
 echo "Deploying..."
 echo "apply deployment.yaml"
-IMAGE="$DOCKER_REPO:$TAG_NAME"
+IMAGE="$DOCKER_REPO:$TAGNAME"
 echo $IMAGE
 sed -i "s/\$IMAGE/$(echo "$IMAGE")/g" kube/manifest/*.yaml
 echo "$(cat kube/manifest/backend-deployment.yaml)"
