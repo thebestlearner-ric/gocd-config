@@ -11,7 +11,7 @@ pipelines:
         username: thebestlearner-ric
         shallow_clone: false
         auto_update: true
-        branch: main
+        branch: master
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
         destination: air-frontend-repo
       air-frontend-conf:
