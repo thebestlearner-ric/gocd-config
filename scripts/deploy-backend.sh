@@ -21,7 +21,7 @@ echo "what is in kube manifest $(ls -altr kube/manifest/)"
 echo "Deploying..."
 echo "apply deployment.yaml"
 echo $TAGNAME
-sed -i "s/TAG/\$(echo "$TAGNAME")/g" kube/manifest/backend-deployment.yaml
+sed -i "s/TAG/$(echo $TAGNAME)/g" kube/manifest/backend-deployment.yaml
 # sed -i "s#$IMAGE#$(echo $IMAGE)#g" kube/manifest/backend-deployment.yaml
 echo "$(cat kube/manifest/backend-deployment.yaml)"
 $HOME/.local/bin/kubectl apply -f kube/manifest/backend-deployment.yaml -n $ENV
