@@ -5,10 +5,11 @@ alias k="$HOME/.local/bin/kubectl"
 k get pod -n gocd
 
 NAMESPACE="$ENV"
-git clone https://github.com/thebestlearner-ric/air-backend.git
-git rev-parse --short HEAD
-docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-docker images learningric/air_artifact
+cd ../air-backend-repo
+git rev-parse --short=8 HEAD
+
+
+
 if k get namespace "$NAMESPACE" &> /dev/null; then
   echo "Namespace '$NAMESPACE' already exists."
 else
