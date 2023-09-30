@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: IMAGE # Replace with actual image and tag
+          image: learningric/air_artifact:TAG # Replace with actual image and tag
           ports:
             - containerPort: 3000

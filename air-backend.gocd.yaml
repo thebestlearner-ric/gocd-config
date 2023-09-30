@@ -76,4 +76,4 @@ pipelines:
                   - -c
                   - |
                     cd air-backend-repo-config
-                    bash scripts/publish.sh
+                    bash scripts/deploy-backend.sh
