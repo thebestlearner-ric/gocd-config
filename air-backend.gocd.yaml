@@ -38,7 +38,7 @@ pipelines:
             elastic_profile_id: demo-app
             artifacts:
             - build:
-                source: artifact.txt
+                source: /godata/pipelines/air-backend/air-backend-repo/artifact.txt
                 destination: ''
             tasks:
             - exec:
