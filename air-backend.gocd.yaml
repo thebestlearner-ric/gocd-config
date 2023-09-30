@@ -71,6 +71,7 @@ pipelines:
             elastic_profile_id: demo-app
             tasks:
             - fetch:
+                is_file: true
                 source: artifact.txt
                 destination: ''
                 pipeline: air-backend
@@ -96,9 +97,3 @@ pipelines:
                   - |
                     cd air-backend-repo-config
                     bash scripts/publish.sh
-            
-
-
-
-                  
-
