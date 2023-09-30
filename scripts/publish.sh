@@ -7,9 +7,7 @@ NAMESPACE=$ENV
 cd ../air-backend-repo
 TAG="$(git rev-parse --short=8 HEAD)"
 cd ../air-backend-repo-config
-TAGNAME="$ENV_$TAG"
-docker pull $DOCKER_REPO:$TAGNAME
-docker images
+TAGNAME="$ENV\_$TAG"
 
 if $HOME/.local/bin/kubectl get namespace "$NAMESPACE" &> /dev/null; then
   echo "Namespace '$NAMESPACE' already exists."
@@ -24,7 +22,8 @@ echo "Deploying..."
 echo "apply deployment.yaml"
 IMAGE="$DOCKER_REPO:$TAGNAME"
 echo $IMAGE
-sed -i "s/\$IMAGE/$(echo "$IMAGE")/g" kube/manifest/kube/manifest/backend-deployment.yaml
+# sed -i "s/\$IMAGE/\$(echo "$IMAGE")/g" kube/manifest/kube/manifest/backend-deployment.yaml
+sed -i "s#$IMAGE#$(echo $IMAGE)#g" kube/manifest/kube/manifest/backend-deployment.yaml
 echo "$(cat kube/manifest/backend-deployment.yaml)"
 $HOME/.local/bin/kubectl apply -f kube/manifest/backend-deployment.yaml -n $ENV
 echo "apply service.yaml"
