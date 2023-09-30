@@ -33,13 +33,7 @@ pipelines:
         jobs:
           docker:
             timeout: 0
-            tabs:
-              Sample: artifact.txt
             elastic_profile_id: demo-app
-            artifacts:
-            - build:
-                source: /godata/pipelines/air-backend/air-backend-repo/artifact.txt
-                destination: ''
             tasks:
             - exec:
                 command: bash 
@@ -65,15 +59,6 @@ pipelines:
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
-            - fetch:
-                is_file: true
-                source: artifact.txt
-                destination: ''
-                pipeline: air-backend
-                stage: Build-and-Publish
-                job: docker
-                artifact_origin: gocd
-                run_if: passed
             - exec:
                 command: bash 
                 arguments:
