@@ -1,0 +1,64 @@
+# cluster-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: namespace-admin
+rules:
+- apiGroups: ["", "apps", "extensions", "batch"]
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups: ["batch"]
+  resources:
+    - jobs
+    - cronjobs
+  verbs: ["*"]
+- apiGroups: ["apps"]
+  resources:
+    - deployments
+    - replicasets
+    - statefulsets
+  verbs: ["*"]
+- apiGroups: ["networking.k8s.io"]
+  resources:
+    - ingresses
+  verbs: ["*"]
+- apiGroups: ["autoscaling"]
+  resources:
+    - horizontalpodautoscalers
+  verbs: ["*"]
+- apiGroups: ["policy"]
+  resources:
+    - poddisruptionbudgets
+  verbs: ["*"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources:
+    - clusterroles
+    - clusterrolebindings
+    - roles
+    - rolebindings
+  verbs: ["*"]
+- apiGroups: [""]
+  resources:
+    - configmaps
+    - secrets
+    - services
+    - pods
+    - services/finalizers
+    - endpoints
+    - persistentvolumeclaims
+    - events
+    - namespaces
+    - resourcequotas
+    - limitranges
+    - pods/log
+  verbs: ["*"]
+- apiGroups: ["storage.k8s.io"]
+  resources:
+    - storageclasses
+    - volumeattachments
+  verbs: ["*"]
+- apiGroups: ["admissionregistration.k8s.io"]
+  resources:
+    - mutatingwebhookconfigurations
+    - validatingwebhookconfigurations
+  verbs: ["*"]

@@ -1,8 +1,16 @@
 #!/bin/bash -xe
-# docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-# docker images
-# TAG_NAME=$(git rev-parse --short=8 HEAD)
-# docker push $DOCKER_REPO:backend-$TAG_NAME
 
-$HOME/.local/bin/kubectl get pod -n gocd
-kubectl create namespace backend
+# For Kubectl deployment
+alias k="$HOME/.local/bin/kubectl"
+k get pod -n gocd
+
+NAMESPACE="$ENV"
+
+if k get namespace "$NAMESPACE" &> /dev/null; then
+  echo "Namespace '$NAMESPACE' already exists."
+else
+  echo "Namespace '$NAMESPACE' does not exist. Creating..."
+  k create namespace "$NAMESPACE"
+  echo "Namespace '$NAMESPACE' created."
+fi
+
