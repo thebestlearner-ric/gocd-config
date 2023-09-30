@@ -24,7 +24,6 @@ echo $TAGNAME
 
 if [ "$1" == "frontend" ]; then
     echo "You provided 'frontend' as the parameter."
-    echo "You provided 'backend' as the parameter."
     sed -i "s/TAG/$(echo $TAGNAME)/g" kube/manifest/frontend-deployment.yaml
     echo "$(cat kube/manifest/frontend-deployment.yaml)"
     $HOME/.local/bin/kubectl apply -f kube/manifest/frontend-deployment.yaml -n $ENV
