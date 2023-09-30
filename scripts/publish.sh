@@ -1,20 +1,22 @@
 #!/bin/bash -xe
 
 # For Kubectl deployment
-alias k="$HOME/.local/bin/kubectl"
-k get pod -n gocd
+$HOME/.local/bin/kubectl get pod -n gocd
+ENV=backend
+NAMESPACE=$ENV
+cd ../$ENV
+TAG=git rev-parse --short=8 HEAD
+cd ../air-backend-repo-config
+IMAGE="$ENV-$TAG"
+docker pull $DOCKER_REPO:$IMAGE
+docker images
 
-NAMESPACE="$ENV"
-cd ../air-backend-repo
-git rev-parse --short=8 HEAD
-
-
-
-if k get namespace "$NAMESPACE" &> /dev/null; then
+if $HOME/.local/bin/kubectl get namespace "$NAMESPACE" &> /dev/null; then
   echo "Namespace '$NAMESPACE' already exists."
 else
   echo "Namespace '$NAMESPACE' does not exist. Creating..."
-  k create namespace "$NAMESPACE"
+  $HOME/.local/bin/kubectl create namespace "$NAMESPACE"
   echo "Namespace '$NAMESPACE' created."
 fi
 
+echo "what is in kube manifest $(ls -altr kube/manifest/)"

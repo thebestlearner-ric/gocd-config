@@ -13,7 +13,7 @@ pipelines:
         auto_update: true
         branch: main
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
-        destination: air-backend-repo
+        destination: backend
       air-backend-conf:
         git: https://github.com/thebestlearner-ric/gocd-config.git
         username: thebestlearner-ric
