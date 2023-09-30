@@ -22,8 +22,8 @@ echo "Deploying..."
 echo "apply deployment.yaml"
 IMAGE="$DOCKER_REPO:$TAGNAME"
 echo $IMAGE
-# sed -i "s/\$IMAGE/\$(echo "$IMAGE")/g" kube/manifest/kube/manifest/backend-deployment.yaml
-sed -i "s#$IMAGE#$(echo $IMAGE)#g" kube/manifest/backend-deployment.yaml
+sed -i "s/IMAGE/\$(echo "$IMAGE")/g" kube/manifest/backend-deployment.yaml
+# sed -i "s#$IMAGE#$(echo $IMAGE)#g" kube/manifest/backend-deployment.yaml
 echo "$(cat kube/manifest/backend-deployment.yaml)"
 $HOME/.local/bin/kubectl apply -f kube/manifest/backend-deployment.yaml -n $ENV
 echo "apply service.yaml"

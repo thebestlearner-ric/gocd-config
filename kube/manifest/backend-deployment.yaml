@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: $IMAGE # Replace with actual image and tag
+          image: IMAGE # Replace with actual image and tag
           ports:
             - containerPort: 5000
