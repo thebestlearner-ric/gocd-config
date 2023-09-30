@@ -41,7 +41,7 @@ pipelines:
                   - -c
                   - |
                     cd air-backend-repo-config
-                    bash scripts/build.sh
+                    bash scripts/build.sh backend
     - Kube-deploy:
         fetch_materials: true
         keep_artifacts: false
@@ -76,4 +76,4 @@ pipelines:
                   - -c
                   - |
                     cd air-backend-repo-config
-                    bash scripts/deploy-backend.sh
+                    bash scripts/deploy.sh backend
