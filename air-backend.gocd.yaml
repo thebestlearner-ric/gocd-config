@@ -9,7 +9,7 @@ pipelines:
       air-backend:
         git: https://github.com/thebestlearner-ric/air-backend.git
         username: thebestlearner-ric
-        shallow_clone: true
+        shallow_clone: false
         auto_update: true
         branch: main
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
@@ -17,7 +17,7 @@ pipelines:
       air-backend-conf:
         git: https://github.com/thebestlearner-ric/gocd-config.git
         username: thebestlearner-ric
-        shallow_clone: true
+        shallow_clone: false
         auto_update: true
         branch: backend
         encrypted_password: AES:PHp/CacxfxowpJmo7K92xw==:GWG53xoLL5a4svzdBrjqpw==
@@ -47,7 +47,6 @@ pipelines:
                   - |
                     cd air-backend-repo
                     bash scripts/build.sh
-                    cd ..
     - Kube-deploy:
         fetch_materials: true
         keep_artifacts: false
@@ -56,6 +55,7 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
+          fetch:
           dockerpush:
             environment_variables:
               DOCKER_USER: learningric
@@ -65,16 +65,21 @@ pipelines:
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
-            # - exec:
-            #     command: bash
-            #     arguments:
-            #       - -c
-            #       - |
-            #         ls 
-            #         pwd
-            #         cd air-backend-repo-config
-            #         bash scripts/publish.sh
-            #         cd ..
+            - fetch:
+                source: artifact.txt
+                destination: ''
+                pipeline: air-backend
+                stage: Build-and-Publish
+                job: docker
+                artifact_origin: gocd
+                run_if: passed    
+            - exec:
+                command: bash
+                arguments:
+                  - -c
+                  - |
+                    find / -n artifact.txt
+                privileged: true
             - exec:
                 command: bash 
                 arguments:
@@ -85,14 +90,6 @@ pipelines:
                     mkdir -p ~/.local/bin
                     mv kubectl $HOME/.local/bin/kubectl
                     export PATH="$PATH:$HOME/.local/bin"
-                privileged: true
-            - exec:
-                command: bash
-                arguments:
-                  - -c
-                  - |
-                    type docker
-                    whoami
                 privileged: true
             - exec:
                 command: bash 
