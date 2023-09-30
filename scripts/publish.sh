@@ -7,7 +7,7 @@ NAMESPACE=$ENV
 cd ../air-backend-repo
 TAG="$(git rev-parse --short=8 HEAD)"
 cd ../air-backend-repo-config
-TAG_NAME="$ENV-$TAG"
+TAG_NAME="$ENV.$TAG"
 docker pull $DOCKER_REPO:$TAG_NAME
 docker images
 
