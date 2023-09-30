@@ -38,7 +38,13 @@ pipelines:
             secure_variables:
               DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
             timeout: 0
+            tabs:
+              Sample: artifact.txt
             elastic_profile_id: demo-app
+            artifacts:
+            - build:
+              source: artifact.txt
+              destination: ''
             tasks:
             - exec:
                 command: bash 
@@ -71,13 +77,7 @@ pipelines:
                 stage: Build-and-Publish
                 job: docker
                 artifact_origin: gocd
-                run_if: passed    
-            - exec:
-                command: bash
-                arguments:
-                  - -c
-                  - |
-                    find / -n artifact.txt
+                run_if: passed
             - exec:
                 command: bash 
                 arguments:
