@@ -4,7 +4,7 @@
 $HOME/.local/bin/kubectl get pod -n gocd
 ENV=backend
 NAMESPACE=$ENV
-cd ../$ENV
+cd ../air-backend-repo
 TAG=git rev-parse --short=8 HEAD
 cd ../air-backend-repo-config
 IMAGE="$ENV-$TAG"
