@@ -6,7 +6,7 @@ pipelines:
     lock_behavior: none
     display_order: -1
     materials:
-      air-backend:
+      backend-repo:
         git: https://github.com/thebestlearner-ric/air-backend.git
         username: thebestlearner-ric
         shallow_clone: false
@@ -32,19 +32,14 @@ pipelines:
           allow_only_on_success: false
         jobs:
           docker:
-            environment_variables:
-              DOCKER_USER: learningric
-              DOCKER_REPO: learningric/air_artifact
-            secure_variables:
-              DOCKER_PASSWORD: AES:nrcrbKOVkOmW47i5nbCrLw==:RCiJPrwaCgKoEl9IP5sqGg==
             timeout: 0
             tabs:
               Sample: artifact.txt
             elastic_profile_id: demo-app
             artifacts:
             - build:
-              source: artifact.txt
-              destination: ''
+                source: artifact.txt
+                destination: ''
             tasks:
             - exec:
                 command: bash 
