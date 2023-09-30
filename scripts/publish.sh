@@ -5,7 +5,7 @@ $HOME/.local/bin/kubectl get pod -n gocd
 ENV=backend
 NAMESPACE=$ENV
 cd ../air-backend-repo
-TAG=git rev-parse --short=8 HEAD
+TAG="$(git rev-parse --short=8 HEAD)"
 cd ../air-backend-repo-config
 IMAGE="$ENV-$TAG"
 docker pull $DOCKER_REPO:$IMAGE
@@ -20,3 +20,10 @@ else
 fi
 
 echo "what is in kube manifest $(ls -altr kube/manifest/)"
+echo "$(cat kube/manifest/backend-deployment.yaml)"
+echo "Deploying..."
+echo "apply deployment.yaml"
+
+$HOME/.local/bin/kubectl apply -f kube/manifest/backend-deployment.yaml
+echo "apply service.yaml"
+$HOME/.local/bin/kubectl apply -f kube/manifest/backend-service.yaml
