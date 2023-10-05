@@ -17,3 +17,7 @@ spec:
           image: learningric/air_artifact:TAG # Replace with actual image and tag
           ports:
             - containerPort: 3000
+          resources:
+            limits:
+              cpu: "0.1"
+              memory: "300Mi"
